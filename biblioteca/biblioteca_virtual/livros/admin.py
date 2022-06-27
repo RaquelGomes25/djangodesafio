@@ -9,9 +9,8 @@ class CustomFilter(SimpleListFilter):  # filtro do django
     parameter_name = "custom" # vai aparecer na url
     def lookups(self, request, model_admin):
         return(
-            ("value_01", "value 01"), #filtro passado e filtro que aparece
-            ("value_02", "value 02"), #filtro passado e filtro que aparece
-            ("value_03", "value 03"), #filtro passado e filtro que aparece
+            ("value_01", "Ordenar por Titulo"), #filtro passado e filtro que aparece
+            ("value_02", "Ordenar por Autor"), #filtro passado e filtro que aparece
         )
     def queryset(self, request, queryset): #classe obrigatoria para filtros customizados
         if self.value() == "value_01":
@@ -20,10 +19,9 @@ class CustomFilter(SimpleListFilter):  # filtro do django
             queryset = queryset.order_by("autor")
         return queryset
     
-class LivroAdmin(admin.ModelAdmin):
+class LivroAdmin(admin.ModelAdmin): #busca
     list_filter = ["titulo", CustomFilter]
     search_fields = ['titulo', 'autor']
-
 
 admin.site.register(Usuario)
 admin.site.register(Livro, LivroAdmin) #acrescenta a classe pra chamar 
